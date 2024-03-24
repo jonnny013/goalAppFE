@@ -1,10 +1,8 @@
-import { StyleSheet, Text, View, TextInput, Alert } from 'react-native'
+import { StyleSheet, View, TextInput, Alert } from 'react-native'
 import React, { useState } from 'react'
 import Gap from '../../components/Gap'
 import theme from '../../styles/theme'
 import Button from '../../components/Button'
-import axios from 'axios'
-import { url } from '../../utils/constants'
 
 const index = () => {
   const [email, setEmail] = useState('')
@@ -17,7 +15,6 @@ const index = () => {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Login Here</Text>
       <Gap gapSize={theme.gapSize.mediumGap} />
       <TextInput
         style={styles.input}
