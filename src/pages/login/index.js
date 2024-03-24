@@ -3,13 +3,16 @@ import React, { useState } from 'react'
 import Gap from '../../components/Gap'
 import theme from '../../styles/theme'
 import Button from '../../components/Button'
+import axios from 'axios'
 
 const index = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
    Alert.alert(email, password)
+   // const result = await axios.post(`${url}/login`, {email, password})
+
   }
   return (
     <View style={styles.container}>
