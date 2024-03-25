@@ -5,15 +5,16 @@ import ListItemDisplay from './ListItemDisplay.js'
 import Gap from './Gap.js'
 import theme from '../styles/theme.js'
 import AddButton from './AddButton.js'
+import FilterResultsBar from './FilterResultsBar.js'
 
-const MainGetComponent = ({num, variable}) => {
+const MainGetComponent = ({ num, variable }) => {
   const [list, setList] = useState([])
-console.log(num)
+
   useEffect(() => {
     const fetchData = async () => {
       await db.transaction(tx => {
         tx.executeSql(
-          `SELECT * FROM toDoList WHERE type = ${variable} AND accomplished = ${num}`,
+          `SELECT * FROM toDoList WHERE type = ${variable} AND accomplished = ${num} ORDER BY priorityLevel DESC`,
           [null],
           (txObj, resultSet) => setList(resultSet.rows._array),
           (txObj, error) => console.error(error)
@@ -26,6 +27,7 @@ console.log(num)
 
   return (
     <View style={styles.container}>
+      <FilterResultsBar list={list} setList={setList} />
       <AddButton />
       <FlatList
         data={list}
