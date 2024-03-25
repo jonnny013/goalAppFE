@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     marginTop: theme.gapSize.mediumGap
   },
   dropMenu: {
-    minWidth: 150
+    minWidth: 170
   }
 })
 
