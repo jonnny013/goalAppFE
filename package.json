@@ -15,11 +15,12 @@
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.6",
-    "react-native-calendar-picker": "^8.0.2",
+    "react-native-calendar-picker": "^6.1.5",
     "react-native-check-box": "^2.1.7",
     "react-native-paper": "^5.12.3",
     "react-native-picker-select": "^9.0.1",
-    "react-router-native": "^6.22.3"
+    "react-router-native": "^6.22.3",
+    "expo-image-picker": "~14.7.1"
   },
   "overrides": {
     "semver": "^7.5.3"

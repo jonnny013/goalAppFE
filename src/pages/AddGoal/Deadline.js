@@ -28,7 +28,10 @@ const Deadline = ({setDeadline}) => {
             color='#007bff'
             value={false}
             status={wantsDeadline ? 'unchecked' : 'checked'}
-            onPress={() => setWantsDeadline(false)}
+            onPress={() => {
+              setWantsDeadline(false)
+              setDeadline(null)
+            }}
           />
           <Text>No</Text>
         </View>
