@@ -23,7 +23,7 @@ console.log(num)
 
     fetchData()
   }, [])
-  console.log(list)
+
   return (
     <View style={styles.container}>
       <AddButton />

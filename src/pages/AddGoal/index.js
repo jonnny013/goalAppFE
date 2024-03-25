@@ -21,16 +21,14 @@ const index = () => {
   const [steps, setSteps] = useState([])
   const [notification, setNotification] = useState(null)
   const navigate = useNavigate()
-  console.log(deadline)
+
   const handleAddStep = () => {
     setSteps([...steps, ''])
   }
   const handleRemoveStep = () => {
-
       const updatedSteps = [...steps]
       updatedSteps.pop()
       setSteps(updatedSteps)
-    
   }
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -47,7 +45,7 @@ const index = () => {
     if (result) {
       setNotification(result)
     }
-    navigate('/')
+    navigate(type === 'toDo' ? '/' : '/wishList')
   } catch (error) {
       setNotification(error)
     }
