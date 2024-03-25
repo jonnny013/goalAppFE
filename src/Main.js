@@ -1,18 +1,24 @@
-import { StyleSheet,  View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Route, Routes, Navigate } from 'react-router-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ToDoList from './pages/ToDoList'
 import WishList from './pages/WishList'
 import AccomplishedList from './pages/AccomplishedList'
 import Header from './components/Header'
 import AddGoal from './pages/AddGoal'
 import IndividualItem from './pages/IndividualItem'
+import { initializeDatabase } from './services/db.js'
 
 const Main = () => {
+  useEffect(() => {
+    const initialize = async () => {
+      await initializeDatabase()
+    }
+    initialize()
+  }, [])
   return (
     <View style={styles.container}>
       <Header />
-
       <Routes>
         <Route path='/' element={<ToDoList />} />
         <Route path='/wishList' element={<WishList />} />

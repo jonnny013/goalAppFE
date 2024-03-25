@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Button, StyleSheet, ScrollView } from 'react-native'
-import { submitNew } from '../../services/inputServices'
+import { submitNew } from '../../services/createNewServices'
 
 import Text from '../../components/Text'
 import { TextInput } from 'react-native-paper'
@@ -21,7 +21,7 @@ const index = () => {
   const [steps, setSteps] = useState([])
   const [notification, setNotification] = useState(null)
   const navigate = useNavigate()
-
+  console.log(deadline)
   const handleAddStep = () => {
     setSteps([...steps, ''])
   }
@@ -55,7 +55,7 @@ const index = () => {
   }
 
   return (
-    <ScrollView   >
+    <ScrollView>
       <View style={styles.container}>
         {notification && <Text>{notification}</Text>}
         <TextInput
@@ -64,7 +64,7 @@ const index = () => {
           value={name}
           onChangeText={setName}
         />
-        <SetType setType={setType} />
+
         <TextInput
           style={styles.input}
           label='Info'
@@ -72,6 +72,7 @@ const index = () => {
           value={info}
           onChangeText={setInfo}
         />
+        <SetType setType={setType} />
         <PriorityLevel
           priorityLevel={priorityLevel}
           setPriorityLevel={setPriorityLevel}

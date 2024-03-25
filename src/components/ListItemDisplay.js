@@ -4,7 +4,7 @@ import CheckBox from 'react-native-check-box'
 import Text from './Text'
 import { Link } from 'react-router-native'
 import Entypo from '@expo/vector-icons/Entypo'
-import { updateAccomplished } from '../services/accomplishedServices'
+import { updateAccomplished } from '../services/updateServices'
 
 const ListItemDisplay = ({ item }) => {
   const [isChecked, setIsChecked] = useState(item.accomplished === 1)

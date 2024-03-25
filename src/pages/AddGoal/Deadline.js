@@ -7,6 +7,10 @@ import Text from '../../components/Text'
 
 const Deadline = ({setDeadline}) => {
     const [wantsDeadline, setWantsDeadline] = useState(false)
+
+    const handleDate = (date) => {
+      setDeadline(date.toISOString())
+    }
   return (
     <>
       <View style={styles.innerContainer}>
@@ -36,7 +40,7 @@ const Deadline = ({setDeadline}) => {
           <Text>No</Text>
         </View>
       </View>
-      {wantsDeadline && <CalendarPicker onDateChange={setDeadline} />}
+      {wantsDeadline && <CalendarPicker onDateChange={handleDate} />}
     </>
   )
 }
