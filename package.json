@@ -15,7 +15,10 @@
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.6",
+    "react-native-calendar-picker": "^8.0.2",
     "react-native-check-box": "^2.1.7",
+    "react-native-paper": "^5.12.3",
+    "react-native-picker-select": "^9.0.1",
     "react-router-native": "^6.22.3"
   },
   "overrides": {
