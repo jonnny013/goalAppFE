@@ -29,12 +29,12 @@ const initializeDatabase = () => {
       )
 
       tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS steps (' +
-          'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-          'toDo_id INTEGER, ' +
-          'step TEXT NOT NULL, ' +
-          'FOREIGN KEY (toDo_id) REFERENCES toDoList(id)' +
-          ')',
+        `CREATE TABLE IF NOT EXISTS steps (
+          id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          toDo_id INTEGER, 
+          step TEXT NOT NULL, 
+          FOREIGN KEY (toDo_id) REFERENCES toDoList(id)
+          )`,
         [],
         () => {
           console.log('steps table created successfully')

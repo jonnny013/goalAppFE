@@ -1,13 +1,14 @@
-import { Pressable, StyleSheet, View, Image } from 'react-native'
+import { StyleSheet, View, Image } from 'react-native'
 import React from 'react'
 import CheckBox from 'react-native-check-box'
 import Text from './Text'
+import { Link } from 'react-router-native'
 
 const ListItemDisplay = ({ item }) => {
   const handleAccomplished = () => {
     console.log(item.id, 'Update this IDs state')
   }
-  console.log(item.image)
+
   return (
     <View style={styles.container}>
       <CheckBox
@@ -16,9 +17,14 @@ const ListItemDisplay = ({ item }) => {
         isChecked={item.accomplished === 1 ? true : false}
         checkBoxColor='green'
       />
-        <Text>{item.name}</Text>
-        <Image source={{ uri: item.image }} style={{ height: 70, width: 70, borderRadius: 5 }} />
-
+      <Link to={`/items/${item.id}`}>
+        <Text style={styles.name} numberOfLines={2} ellipsizeMode='tail'>
+          {item.name}
+        </Text>
+      </Link>
+      <Link to={`/items/${item.id}`}>
+        <Image source={{ uri: item.image }} style={styles.img} />
+      </Link>
     </View>
   )
 }
@@ -33,4 +39,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  innerContainer: {
+    flex: 1,
+    marginLeft: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '90%',
+  },
+  name: {
+    maxWidth: 200,
+    maxHeight: 70,
+  },
+  img: { height: 70, width: 70, borderRadius: 5 },
 })

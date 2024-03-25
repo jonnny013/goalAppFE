@@ -5,13 +5,14 @@ import Text from '../../components/Text.js'
 import ListItemDisplay from '../../components/ListItemDisplay.js'
 import Gap from '../../components/Gap.js'
 import theme from '../../styles/theme.js'
+import AddButton from '../../components/AddButton.js'
 
 const generateFakeData = () => {
   const fakeData = []
   for (let i = 1; i <= 10; i++) {
     fakeData.push({
       id: i,
-      name: `Task ${i}`,
+      name: `Task with a long name that is really really really too long ${i}, even with some extra text here`,
       deadline: `2024-04-${i}`,
       type: i % 2 === 0 ? 'toGet' : 'toDo',
       info: `Task ${i} information`,
@@ -47,12 +48,13 @@ const index = () => {
 
   return (
     <View style={styles.container}>
-      <Text>To Do List</Text>
+      <AddButton />
       <FlatList
-      data={list} 
-      ItemSeparatorComponent={<Gap gapSize={theme.gapSize.mediumGap} />}
-      keyExtractor={item => item.id}
-      renderItem={({item}) => <ListItemDisplay item={item} />} />
+        data={list}
+        ItemSeparatorComponent={<Gap gapSize={theme.gapSize.mediumGap} />}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => <ListItemDisplay item={item} />}
+      />
     </View>
   )
 }
