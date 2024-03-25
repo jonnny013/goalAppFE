@@ -84,6 +84,5 @@ const pickerSelectStyles = StyleSheet.create({
     position: 'absolute',
     top: 12,
     paddingRight: 10,
-
   }
 })

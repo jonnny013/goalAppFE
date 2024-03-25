@@ -21,7 +21,6 @@ const MainGetComponent = ({ num, variable }) => {
         )
       })
     }
-
     fetchData()
   }, [])
 
