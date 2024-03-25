@@ -1,41 +1,56 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Button, StyleSheet } from 'react-native'
 import { submitNew } from '../../services/inputServices'
-import CalendarPicker from 'react-native-calendar-picker'
+
 import Text from '../../components/Text'
-import { RadioButton, TextInput } from 'react-native-paper'
+import { TextInput } from 'react-native-paper'
 import PriorityLevel from './PriorityLevel'
+import SetType from './SetType'
+import Deadline from './Deadline'
 
 
 const index = () => {
-  const [name, setName] = useState('')
+  const [name, setName] = useState(null)
   const [deadline, setDeadline] = useState(null)
-  const [type, setType] = useState('toDo')
-  const [info, setInfo] = useState('')
+  const [type, setType] = useState()
+  const [info, setInfo] = useState()
   const [priorityLevel, setPriorityLevel] = useState(5)
   const [image, setImage] = useState(null)
-  const [steps, setSteps] = useState(['']) 
-  const [wantsDeadline, setWantsDeadline] = useState(false)
-console.log(priorityLevel)
+  const [steps, setSteps] = useState([])
+  const [notification, setNotification] = useState(null)
+console.log(deadline)
   const handleAddStep = () => {
     setSteps([...steps, ''])
   }
   const handleRemoveStep = () => {
     if (steps.length > 1) {
       const updatedSteps = [...steps]
-      updatedSteps.pop() 
+      updatedSteps.pop()
       setSteps(updatedSteps)
     }
   }
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setNotification(null)
+    }, 3000)
 
-  const handleSubmit = () => {
-    submitNew({object: {name, type, deadline, info, priorityLevel, image, steps}})
+    return () => clearTimeout(timeout)
+  }, [notification, setNotification])
+
+  const handleSubmit = async () => {
+    const result = await submitNew({
+      object: { name, type, deadline, info, priorityLevel, image, steps },
+    })
+    if (result) {
+      setNotification(result)
+    }
   }
 
   return (
     <View style={styles.container}>
+      {notification && <Text>{notification}</Text>}
       <TextInput style={styles.input} label='Name' value={name} onChangeText={setName} />
-
+      <SetType setType={setType} />
       <TextInput
         style={styles.input}
         label='Info'
@@ -61,31 +76,7 @@ console.log(priorityLevel)
         <Button title='Add Step' onPress={handleAddStep} />
         <Button title='Remove Step' onPress={handleRemoveStep} />
       </View>
-      <View style={styles.innerContainer}>
-        <Text>Is there a deadline?</Text>
-        <View style={styles.innerContainer}>
-          <RadioButton.Android
-            style={{ borderWidth: 1 }}
-            uncheckedColor='#007bff'
-            color='#007bff'
-            value={true}
-            status={wantsDeadline ? 'checked' : 'unchecked'}
-            onPress={() => setWantsDeadline(true)}
-          />
-          <Text>Yes</Text>
-
-          <RadioButton.Android
-            style={{ borderWidth: 1 }}
-            uncheckedColor='#007bff'
-            color='#007bff'
-            value={false}
-            status={wantsDeadline ? 'unchecked' : 'checked'}
-            onPress={() => setWantsDeadline(false)}
-          />
-          <Text>No</Text>
-        </View>
-      </View>
-      {wantsDeadline && <CalendarPicker onDateChange={setDeadline} />}
+        <Deadline setDeadline={setDeadline} />
 
       <Button title='Submit' onPress={handleSubmit} />
     </View>
@@ -102,7 +93,7 @@ const styles = StyleSheet.create({
   input: {
     marginBottom: 10,
     paddingHorizontal: 10,
-    backgroundColor: '#B8E2F2'
+    backgroundColor: '#B8E2F2',
   },
   innerContainer: {
     flexDirection: 'row',

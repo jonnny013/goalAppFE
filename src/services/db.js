@@ -5,21 +5,23 @@ import * as SQLite from 'expo-sqlite'
 const db = SQLite.openDatabase('main.db')
 
 const initializeDatabase = () => {
+
   db.transaction(
     tx => {
       tx.executeSql(
-        `CREATE TABLE IF NOT EXISTS toDoList ( id INTEGER PRIMARY KEY AUTOINCREMENT,  
-          name TEXT,  
-          deadline DATE,  
-          type TEXT CHECK(type IN ("toDo", "toGet")) DEFAULT "toDo",  
+        `CREATE TABLE IF NOT EXISTS toDoList ( 
+          id INTEGER PRIMARY KEY AUTOINCREMENT,  
+          name TEXT NOT NULL,  
+          deadline DATE ,  
+          type TEXT NOT NULL CHECK(type IN ("toDo", "toGet")) DEFAULT "toDo",  
           info TEXT,  
           steps_id INTEGER,  
-          priorityLevel INTEGER DEFAULT 10,  
+          priorityLevel INTEGER NOT NULL DEFAULT 10,  
           image BLOB,  
           accomplished INTEGER DEFAULT 0, 
           createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
           FOREIGN KEY (steps_id) REFERENCES steps(id) )`,
-          null,
+        null,
         () => {
           console.log('toDoList table created successfully')
         },
