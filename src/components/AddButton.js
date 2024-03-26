@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, Text } from 'react-native'
+import { Pressable, StyleSheet } from 'react-native'
+import { Button } from 'react-native-paper'
 import React from 'react'
 import theme from '../styles/theme'
 import { useNavigate } from 'react-router-native'
@@ -10,7 +11,7 @@ const AddButton = ({ text = '+', location = '/addNew' }) => {
       style={[styles.container, text === '+' ? styles.add : styles.edit]}
       onPress={() => navigate(location)}
     >
-      <Text style={styles.text}>{text}</Text>
+      <Button mode='elevated' compact={true} style={styles.text} textColor='white'>{text}</Button>
     </Pressable>
   )
 }
@@ -20,12 +21,7 @@ export default AddButton
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    zIndex: 999,
-    borderRadius: 50,
-    borderWidth: 1,
-    width: 60,
-    height: 60,
-    backgroundColor: theme.fonts.buttonColor,
+    zIndex: 999,  
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -39,6 +35,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 20
+    fontSize: 20,
+    width: 65,
+    padding: 0,
+    backgroundColor: theme.fonts.buttonColor
   }
 })
