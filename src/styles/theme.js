@@ -14,6 +14,9 @@ const theme = {
   },
   input: {
     padding: 10
+  },
+  background: {
+    color: '#B8E2F2'
   }
 }
 

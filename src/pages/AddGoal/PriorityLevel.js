@@ -2,6 +2,7 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import RNPickerSelect from 'react-native-picker-select'
 import Octicons from '@expo/vector-icons/Octicons'
+import theme from '../../styles/theme'
 
 const list = [1, 2, 3, 4, 5]
 
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 60,
     padding: 10,
-    backgroundColor: '#B8E2F2',
+    backgroundColor: theme.background.color,
     marginBottom: 10,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,

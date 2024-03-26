@@ -9,6 +9,7 @@ import SetType from './SetType'
 import Deadline from './Deadline'
 import { useNavigate } from 'react-router-native'
 import ImageUpload from './ImageUpload'
+import theme from '../../styles/theme'
 
 
 const index = () => {
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
   input: {
     marginBottom: 10,
     paddingHorizontal: 10,
-    backgroundColor: '#B8E2F2',
+    backgroundColor: theme.background.color,
   },
   innerContainer: {
     flexDirection: 'row',

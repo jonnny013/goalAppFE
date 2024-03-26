@@ -7,6 +7,8 @@ import Loading from '../../components/Loading'
 import { fetchToDoListWithSteps } from '../../services/GetIndividualItem'
 import Gap from '../../components/Gap'
 import AddButton from '../../components/AddButton'
+import GoalImage from '../../../assets/goal.png'
+import { Card } from 'react-native-paper'
 
 const index = () => {
   const { id } = useParams()
@@ -20,32 +22,40 @@ const index = () => {
   }, [])
 
   if (!item) return <Loading />
-  console.log('item: ', item)
+  console.log(item)
   return (
     <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Image source={GoalImage} style={styles.image} resizeMode='contain' />
+      </View>
       <AddButton />
-      <View style={styles.innerContainer}>
-        {item.image && (
-          <Image source={{ uri: item.image }} style={{ width: 150, height: 150 }} />
-        )}
-        <Text>{item.name}</Text>
-      </View>
-      <View style={styles.innerContainer}>
-        {item.info && <Text>Info: {item.info}</Text>}
-      </View>
+      <Card style={styles.innerContainer}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Card.Content style={styles.content}>
+          {item.image && (
+            <Card.Cover
+              source={{ uri: item.image }}
+              style={{ width: 150, height: 150, marginRight: 20 }}
+            />
+          )}
+
+          <Text> {item.info}</Text>
+        </Card.Content>
+      </Card>
+
       <View style={styles.innerContainer}>
         <Text>Type: {item.type === 'todo' ? 'To do' : 'Wish List'}</Text>
         <Text>Priority: {item.priorityLevel}</Text>
       </View>
-      {item.steps && (
+      {item.steps && item.steps[0] !== null && (
         <View style={styles.steps}>
           {item.steps.map((step, index) => (
-            <>
-              <Text key={index}>
-                Step {index}: {step}
+            <View key={index}>
+              <Text>
+                Step {index + 1}: {step}
               </Text>
               <Gap />
-            </>
+            </View>
           ))}
         </View>
       )}
@@ -58,20 +68,14 @@ export default index
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: theme.gapSize.smallGap,
+    paddingTop: 0,
     width: '95%',
   },
   innerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderWidth: 1,
-    padding: 10,
     margin: 10,
     width: '100%',
-    borderRadius: 5,
+    backgroundColor: theme.background.color,
   },
   steps: {
     justifyContent: 'space-between',
@@ -81,4 +85,21 @@ const styles = StyleSheet.create({
     margin: 10,
     width: '100%',
   },
+  image: {
+    flex: 1,
+    width: 300,
+    height: 100,
+  },
+  imageContainer: {
+    width: '100%',
+    margin: 0,
+    padding: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 100,
+  },
+  content: {
+    flexDirection: 'row',
+  },
+  title: { fontSize: theme.fonts.titleSize, textAlign: 'center', padding: 10 },
 })

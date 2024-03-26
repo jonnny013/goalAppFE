@@ -5,10 +5,10 @@ import themes from '../styles/theme'
 const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
   const textStyle = [
     styles.text,
-    color === 'textSecondary' && styles.colorTextSecondary,
-    color === 'primary' && styles.colorPrimary,
-    fontSize === 'subheading' && styles.fontSizeSubheading,
-    fontWeight === 'bold' && styles.fontWeightBold,
+    color,
+    color ,
+    fontSize,
+    fontWeight,
     style,
   ]
 
