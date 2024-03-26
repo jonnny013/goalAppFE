@@ -1,33 +1,62 @@
 import React, { useEffect, useState } from 'react'
 import { View, Button, StyleSheet, ScrollView } from 'react-native'
-//import { submitNew } from '../../services/createNewServices'
-
+import { editToDoItem } from '../../services/updateServices'
 import Text from '../../components/Text'
 import { TextInput } from 'react-native-paper'
 import PriorityLevel from '../AddGoal/PriorityLevel'
 import SetType from '../AddGoal/SetType'
 import Deadline from '../AddGoal/Deadline'
-import { useNavigate } from 'react-router-native'
+import { useNavigate, useParams } from 'react-router-native'
 import ImageUpload from '../AddGoal/ImageUpload'
+import { fetchToDoListWithSteps } from '../../services/GetIndividualItem'
 
 const index = () => {
-  const [name, setName] = useState(null)
-  const [deadline, setDeadline] = useState(null)
-  const [type, setType] = useState()
-  const [info, setInfo] = useState()
-  const [priorityLevel, setPriorityLevel] = useState(5)
-  const [image, setImage] = useState(null)
-  const [steps, setSteps] = useState([])
+  const { id } = useParams()
+  const [formData, setFormData] = useState({
+    name: null,
+    deadline: null,
+    type: null,
+    info: null,
+    priorityLevel: 5,
+    image: null,
+    steps: [],
+  })
+  console.log('Edit form: ',formData)
   const [notification, setNotification] = useState(null)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    const fetch = async () => {
+      const result = await fetchToDoListWithSteps(id)
+      updateFormData(result[0])
+    }
+    fetch()
+  }, [])
+  const updateFormData = data => {
+    setFormData(prevData => ({
+      ...prevData,
+      name: data.name,
+      deadline: data.deadline,
+      type: data.type,
+      info: data.info,
+      priorityLevel: data.priorityLevel,
+      image: data.image,
+      steps: data.steps[0] === null ? [] : data.steps || [],
+    }))
+  }
+
   const handleAddStep = () => {
-    setSteps([...steps, ''])
+   setFormData(prevData => ({
+     ...prevData,
+     steps: [...prevData.steps, ''],
+   }))
   }
   const handleRemoveStep = () => {
-    const updatedSteps = [...steps]
-    updatedSteps.pop()
-    setSteps(updatedSteps)
+    setFormData(prevData => {
+      const updatedSteps = [...prevData.steps]
+      updatedSteps.pop()
+      return { ...prevData, steps: updatedSteps }
+    })
   }
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -39,14 +68,16 @@ const index = () => {
 
   const handleSubmit = async () => {
     try {
-      const result = await submitNew({
-        object: { name, type, deadline, info, priorityLevel, image, steps },
+      const result = await editToDoItem({
+        object: formData, id
       })
       if (result) {
+        console.log(result)
         setNotification(result)
       }
-      navigate(type === 'toDo' ? '/' : '/wishList')
+      navigate(formData.type === 'toDo' ? '/' : '/wishList')
     } catch (error) {
+      console.log(error)
       setNotification(error)
     }
   }
@@ -54,36 +85,36 @@ const index = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        {notification && <Text>{notification}</Text>}
+        {notification && <Text>{notification.toString()}</Text>}
         <TextInput
           style={styles.input}
           label='Name'
-          value={name}
-          onChangeText={setName}
+          value={formData.name}
+          onChangeText={text => setFormData({ ...formData, name: text })}
         />
 
         <TextInput
           style={styles.input}
           label='Info'
           multiline={true}
-          value={info}
-          onChangeText={setInfo}
+          value={formData.info}
+          onChangeText={text => setFormData({ ...formData, info: text })}
         />
-        <SetType setType={setType} />
+        <SetType setType={type => setFormData({ ...formData, type })} />
         <PriorityLevel
-          priorityLevel={priorityLevel}
-          setPriorityLevel={setPriorityLevel}
+          priorityLevel={formData.priorityLevel}
+          setPriorityLevel={level => setFormData({ ...formData, priorityLevel: level })}
         />
-        {steps.map((step, index) => (
+        {formData.steps && formData.steps.map((step, index) => (
           <TextInput
             key={index}
             style={styles.input}
             label={`Step ${index + 1}`}
             value={step}
             onChangeText={text => {
-              const updatedSteps = [...steps]
+              const updatedSteps = [...formData.steps]
               updatedSteps[index] = text
-              setSteps(updatedSteps)
+              setFormData({ ...formData, steps: updatedSteps })
             }}
           />
         ))}
@@ -91,8 +122,11 @@ const index = () => {
           <Button title='Add a step' onPress={handleAddStep} />
           <Button title='Remove a step' onPress={handleRemoveStep} />
         </View>
-        <ImageUpload image={image} setImage={setImage} />
-        <Deadline setDeadline={setDeadline} />
+        <ImageUpload
+          image={formData.image}
+          setImage={image => setFormData({ ...formData, image })}
+        />
+        <Deadline setDeadline={deadline => setFormData({ ...formData, deadline })} />
 
         <Button title='Submit' onPress={handleSubmit} />
       </View>

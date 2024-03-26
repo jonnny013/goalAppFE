@@ -6,7 +6,7 @@ import theme from '../../styles/theme'
 import Loading from '../../components/Loading'
 import { fetchToDoListWithSteps } from '../../services/GetIndividualItem'
 import Gap from '../../components/Gap'
-import EditButton from '../../components/EditButton'
+import AddButton from '../../components/AddButton'
 import GoalImage from '../../../assets/goal.png'
 import { Card } from 'react-native-paper'
 
@@ -37,7 +37,7 @@ const index = () => {
         <View style={styles.imageContainer}>
           <Image source={GoalImage} style={styles.image} resizeMode='contain' />
         </View>
-        <EditButton />
+        <AddButton text='Edit' location={`/editGoal/${item.id}`} />
         <Card style={styles.innerContainer}>
           <Text style={styles.title}>{item.name}</Text>
           <Card.Content style={styles.content}>

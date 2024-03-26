@@ -1,4 +1,4 @@
-import { db } from "./db"
+import { db, initializeDatabase } from "./db"
 
 export const updateAccomplished = async ({ item, num }) => {
 
@@ -14,4 +14,55 @@ export const updateAccomplished = async ({ item, num }) => {
   } catch (error) {
     console.error('Transaction error:', error)
   }
+}
+
+
+export const editToDoItem = ({ id, object }) => {
+  const { name, deadline, type, info, priorityLevel, image, steps } = object
+  initializeDatabase()
+
+  db.transaction(
+    tx => {
+      tx.executeSql(
+        `UPDATE toDoList 
+        SET name = ?, deadline = ?, type = ?, info = ?, priorityLevel = ?, image = ? 
+        WHERE id = ?`,
+        [name, deadline, type, info, priorityLevel, image, id],
+        // eslint-disable-next-line no-unused-vars
+        (_, result) => {
+          console.log('ToDo item updated successfully')
+          // Delete existing steps for this to-do item
+          tx.executeSql(
+            `DELETE FROM steps WHERE toDo_id = ?`,
+            [id],
+            () => {
+              console.log('Existing steps deleted successfully')
+              // Insert updated steps
+              steps.forEach(step => {
+                tx.executeSql(
+                  `INSERT INTO steps (toDo_id, step) VALUES (?, ?)`,
+                  [id, step],
+                  (_, stepResult) => {
+                    console.log('Step inserted successfully:', stepResult.insertId)
+                  },
+                  (_, error) => {
+                    console.error('Error inserting step:', error)
+                  }
+                )
+              })
+            },
+            (_, error) => {
+              console.error('Error deleting existing steps:', error)
+            }
+          )
+        },
+        (_, error) => {
+          console.error('Error updating ToDo item:', error)
+        }
+      )
+    },
+    (_, error) => {
+      console.error('Transaction error:', error)
+    }
+  )
 }

@@ -1,4 +1,3 @@
-import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import RNPickerSelect from 'react-native-picker-select'
 import Octicons from '@expo/vector-icons/Octicons'
@@ -6,19 +5,21 @@ import theme from '../../styles/theme'
 
 const list = [1, 2, 3, 4, 5]
 
-const PriorityLevel = ({ setPriorityLevel}) => {
-  const items = list.map((item) => ({
+const PriorityLevel = ({ setPriorityLevel, priorityLevel }) => {
+  const items = list.map(item => ({
     label: `Priority level: ${item.toString()}`,
     value: item,
-  }));
+  }))
+
   return (
     <View style={styles.container}>
       <RNPickerSelect
-        multiEnable={false}
         Icon={() => <Octicons name='single-select' size={20} />}
         onValueChange={value => setPriorityLevel(value)}
         items={items}
-        style={{color: 'black'}}
+        style={{ color: 'black' }}
+        placeholder={{label: `Current choice: ${priorityLevel}`, value: priorityLevel}}
+        value={priorityLevel}
       />
     </View>
   )
