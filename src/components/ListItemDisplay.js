@@ -52,7 +52,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 80,
-    backgroundColor: theme.background.cardColor
+    backgroundColor: theme.background.cardColor,
+    borderRadius: 5,
+    padding: 10,
   },
   innerContainer: {
     flex: 1,
