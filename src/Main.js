@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Route, Routes, Navigate } from 'react-router-native'
 import React, { useEffect } from 'react'
 import ToDoList from './pages/ToDoList'
@@ -9,6 +9,7 @@ import AddGoal from './pages/AddGoal'
 import IndividualItem from './pages/IndividualItem'
 import { initializeDatabase } from './services/db.js'
 import EditGoal from './pages/EditGoal'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 const Main = () => {
   useEffect(() => {
@@ -18,7 +19,7 @@ const Main = () => {
     initialize()
   }, [])
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
       <Header />
       <Routes>
         <Route path='/' element={<ToDoList />} />
@@ -29,7 +30,7 @@ const Main = () => {
         <Route path='/editGoal/:id' element={<EditGoal />} />
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
-    </View>
+    </GestureHandlerRootView>
   )
 }
 

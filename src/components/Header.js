@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Constants from 'expo-constants'
 import {Link } from 'react-router-native'
+import theme from '../styles/theme'
 
 const Header = () => {
   return (
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'gray',
+    backgroundColor: theme.background.header,
     width: '100%',
     height: 100,
     padding: 10,

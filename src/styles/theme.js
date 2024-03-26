@@ -19,7 +19,8 @@ const theme = {
     color: '#B8E2F2', //input colors
     cardColor: '#B8E2F2',
     deleteColor: 'red',
-    editColor: 'yellow'
+    editColor: 'yellow',
+    header: '#B8E2F2',
   },
 }
 
