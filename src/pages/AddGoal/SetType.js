@@ -23,11 +23,13 @@ const SetType = ({ setType, type }) => {
   return (
     <View style={styles.container}>
       <RNPickerSelect
-        multiEnable={false}
         Icon={() => <Octicons name='single-select' size={20} />}
         onValueChange={value => setType(value)}
         items={list}
-        style={{ color: 'black' }}
+        style={{
+          inputIOS: { color: 'blue' },
+          placeholder: { color: 'black' },
+        }}
         placeholder={{ label: current(), value: type }}
         value={type}
       />

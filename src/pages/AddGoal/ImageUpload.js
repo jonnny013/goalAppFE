@@ -1,6 +1,7 @@
-import {  Button, Image, View } from 'react-native'
+import { Image, View } from 'react-native'
 import React from 'react'
 import * as ImagePicker from 'expo-image-picker'
+import Button from '../../components/Button'
 
 const ImageUpload = ({image, setImage}) => {
 
@@ -22,11 +23,11 @@ const ImageUpload = ({image, setImage}) => {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title={image ? 'Change image' : 'Choose an image'} onPress={pickImage} />
+      <Button text={image ? 'Change image' : 'Choose an image'}onPress={pickImage} />
       {image && (
         <>
           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-          <Button title='Remove image' onPress={() => setImage(null)} />
+          <Button text='Remove image' onPress={() => setImage(null)} />
         </>
       )}
     </View>

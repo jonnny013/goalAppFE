@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { View, Button, StyleSheet, ScrollView } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
 import { editToDoItem } from '../../services/updateServices'
+import Button from '../../components/Button'
 import Text from '../../components/Text'
-import { TextInput } from 'react-native-paper'
+import TextInput from '../AddGoal/TextInput'
 import PriorityLevel from '../AddGoal/PriorityLevel'
 import SetType from '../AddGoal/SetType'
 import Deadline from '../AddGoal/Deadline'
 import { useNavigate, useParams } from 'react-router-native'
 import ImageUpload from '../AddGoal/ImageUpload'
 import { fetchToDoListWithSteps } from '../../services/GetIndividualItem'
+import Steps from '../AddGoal/Steps'
 
 const index = () => {
   const { id } = useParams()
@@ -21,7 +23,6 @@ const index = () => {
     image: null,
     steps: [],
   })
-  console.log('Edit form: ',formData)
   const [notification, setNotification] = useState(null)
   const navigate = useNavigate()
 
@@ -45,19 +46,6 @@ const index = () => {
     }))
   }
 
-  const handleAddStep = () => {
-   setFormData(prevData => ({
-     ...prevData,
-     steps: [...prevData.steps, ''],
-   }))
-  }
-  const handleRemoveStep = () => {
-    setFormData(prevData => {
-      const updatedSteps = [...prevData.steps]
-      updatedSteps.pop()
-      return { ...prevData, steps: updatedSteps }
-    })
-  }
   useEffect(() => {
     const timeout = setTimeout(() => {
       setNotification(null)
@@ -100,35 +88,25 @@ const index = () => {
           value={formData.info}
           onChangeText={text => setFormData({ ...formData, info: text })}
         />
-        <SetType setType={type => setFormData({ ...formData, type })} type={formData.type} />
+        <SetType
+          setType={type => setFormData({ ...formData, type })}
+          type={formData.type}
+        />
         <PriorityLevel
           priorityLevel={formData.priorityLevel}
           setPriorityLevel={level => setFormData({ ...formData, priorityLevel: level })}
         />
-        {formData.steps && formData.steps.map((step, index) => (
-          <TextInput
-            key={index}
-            style={styles.input}
-            label={`Step ${index + 1}`}
-            value={step}
-            onChangeText={text => {
-              const updatedSteps = [...formData.steps]
-              updatedSteps[index] = text
-              setFormData({ ...formData, steps: updatedSteps })
-            }}
-          />
-        ))}
-        <View style={styles.innerContainer}>
-          <Button title='Add a step' onPress={handleAddStep} />
-          <Button title='Remove a step' onPress={handleRemoveStep} />
-        </View>
+        <Steps
+          steps={formData.steps}
+          setSteps={updatedSteps => setFormData({ ...formData, steps: updatedSteps })}
+        />
         <ImageUpload
           image={formData.image}
           setImage={image => setFormData({ ...formData, image })}
         />
         <Deadline setDeadline={deadline => setFormData({ ...formData, deadline })} />
 
-        <Button title='Submit' onPress={handleSubmit} />
+        <Button text='Submit' onPress={handleSubmit} />
       </View>
     </ScrollView>
   )

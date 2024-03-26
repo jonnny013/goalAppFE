@@ -1,27 +1,26 @@
-import { StyleSheet, Text, Pressable } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 import theme from '../styles/theme'
+import { Button } from 'react-native-paper'
 
-const Button = ({handleSubmit, text}) => {
+const StandardButton = ({onPress, text}) => {
   return (
-    <Pressable onPress={handleSubmit} style={styles.button}>
+    <Button onPress={onPress} style={styles.button} mode='elevated'>
       <Text style={styles.buttonText}>{text}</Text>
-    </Pressable>
+    </Button>
   )
 }
 
-export default Button
+export default StandardButton
 
 const styles = StyleSheet.create({
   button: {
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
+    margin: 10,
     borderColor: theme.fonts.buttonColor,
     justifyContent: 'center',
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: theme.fonts.titleSize,
+    fontSize: theme.fonts.textSize,
     color: theme.fonts.buttonColor,
   },
 })

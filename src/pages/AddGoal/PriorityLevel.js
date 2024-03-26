@@ -17,8 +17,11 @@ const PriorityLevel = ({ setPriorityLevel, priorityLevel }) => {
         Icon={() => <Octicons name='single-select' size={20} />}
         onValueChange={value => setPriorityLevel(value)}
         items={items}
-        style={{ color: 'black' }}
-        placeholder={{label: `Current choice: ${priorityLevel}`, value: priorityLevel}}
+        style={{
+          inputIOS: { color: 'blue' },
+          placeholder: { color: 'black' },
+        }}
+        placeholder={{ label: `Current choice: ${priorityLevel}`, value: priorityLevel }}
         value={priorityLevel}
       />
     </View>
