@@ -100,7 +100,7 @@ const index = () => {
           value={formData.info}
           onChangeText={text => setFormData({ ...formData, info: text })}
         />
-        <SetType setType={type => setFormData({ ...formData, type })} />
+        <SetType setType={type => setFormData({ ...formData, type })} type={formData.type} />
         <PriorityLevel
           priorityLevel={formData.priorityLevel}
           setPriorityLevel={level => setFormData({ ...formData, priorityLevel: level })}

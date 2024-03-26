@@ -71,7 +71,7 @@ const index = () => {
           value={info}
           onChangeText={setInfo}
         />
-        <SetType setType={setType} />
+        <SetType setType={setType} type={type} />
         <PriorityLevel
           priorityLevel={priorityLevel}
           setPriorityLevel={setPriorityLevel}

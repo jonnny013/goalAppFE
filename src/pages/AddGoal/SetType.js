@@ -9,7 +9,16 @@ const list = [
   { label: 'Wish list', value: 'toGet' },
 ]
 
-const SetType = ({ setType }) => {
+const SetType = ({ setType, type }) => {
+  const current = () => {
+    if (type === 'toDo') {
+      return 'Current choice: To do'
+    } else if (type === 'toGet') {
+      return 'Current choice: Wish List'
+    } else {
+      return 'Choose here'
+    }
+  }
   
   return (
     <View style={styles.container}>
@@ -19,6 +28,8 @@ const SetType = ({ setType }) => {
         onValueChange={value => setType(value)}
         items={list}
         style={{ color: 'black' }}
+        placeholder={{ label: current(), value: type }}
+        value={type}
       />
     </View>
   )
