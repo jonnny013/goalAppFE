@@ -25,7 +25,7 @@ export default Header
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
     backgroundColor: theme.background.header,
     width: '100%',
