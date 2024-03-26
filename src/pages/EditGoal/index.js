@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { View, Button, StyleSheet, ScrollView } from 'react-native'
-import { submitNew } from '../../services/createNewServices'
+//import { submitNew } from '../../services/createNewServices'
 
 import Text from '../../components/Text'
 import { TextInput } from 'react-native-paper'
-import PriorityLevel from './PriorityLevel'
-import SetType from './SetType'
-import Deadline from './Deadline'
+import PriorityLevel from '../AddGoal/PriorityLevel'
+import SetType from '../AddGoal/SetType'
+import Deadline from '../AddGoal/Deadline'
 import { useNavigate } from 'react-router-native'
-import ImageUpload from './ImageUpload'
+import ImageUpload from '../AddGoal/ImageUpload'
 
 const index = () => {
   const [name, setName] = useState(null)

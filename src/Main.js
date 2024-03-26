@@ -8,6 +8,7 @@ import Header from './components/Header'
 import AddGoal from './pages/AddGoal'
 import IndividualItem from './pages/IndividualItem'
 import { initializeDatabase } from './services/db.js'
+import EditGoal from './pages/EditGoal'
 
 const Main = () => {
   useEffect(() => {
@@ -25,6 +26,7 @@ const Main = () => {
         <Route path='/accomplishedList' element={<AccomplishedList />} />
         <Route path='/items/:id' element={<IndividualItem />} />
         <Route path='/addNew' element={<AddGoal />} />
+        <Route path='/editGoal' element={<EditGoal />} />
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
     </View>

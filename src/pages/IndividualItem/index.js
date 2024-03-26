@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image } from 'react-native'
+import { StyleSheet, View, Image, ScrollView } from 'react-native'
 import { useEffect, useState } from 'react'
 import Text from '../../components/Text'
 import { useParams } from 'react-router-native'
@@ -6,7 +6,7 @@ import theme from '../../styles/theme'
 import Loading from '../../components/Loading'
 import { fetchToDoListWithSteps } from '../../services/GetIndividualItem'
 import Gap from '../../components/Gap'
-import AddButton from '../../components/AddButton'
+import EditButton from '../../components/EditButton'
 import GoalImage from '../../../assets/goal.png'
 import { Card } from 'react-native-paper'
 
@@ -21,45 +21,56 @@ const index = () => {
     fetch()
   }, [])
 
+  const priorityDisplay = (level) => {
+    let fire = ''
+    for (let i = 1; i <= level; i++ ) {
+      fire = fire.concat('🔥')
+    }
+    return fire
+  }
+
   if (!item) return <Loading />
   console.log(item)
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image source={GoalImage} style={styles.image} resizeMode='contain' />
-      </View>
-      <AddButton />
-      <Card style={styles.innerContainer}>
-        <Text style={styles.title}>{item.name}</Text>
-        <Card.Content style={styles.content}>
-          {item.image && (
-            <Card.Cover
-              source={{ uri: item.image }}
-              style={{ width: 150, height: 150, marginRight: 20 }}
-            />
-          )}
-
-          <Text> {item.info}</Text>
-        </Card.Content>
-      </Card>
-
-      <View style={styles.innerContainer}>
-        <Text>Type: {item.type === 'todo' ? 'To do' : 'Wish List'}</Text>
-        <Text>Priority: {item.priorityLevel}</Text>
-      </View>
-      {item.steps && item.steps[0] !== null && (
-        <View style={styles.steps}>
-          {item.steps.map((step, index) => (
-            <View key={index}>
-              <Text>
-                Step {index + 1}: {step}
-              </Text>
-              <Gap />
-            </View>
-          ))}
+    <ScrollView style={{width: '100%'}}>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image source={GoalImage} style={styles.image} resizeMode='contain' />
         </View>
-      )}
-    </View>
+        <EditButton />
+        <Card style={styles.innerContainer}>
+          <Text style={styles.title}>{item.name}</Text>
+          <Card.Content style={styles.content}>
+            {item.image && (
+              <Card.Cover
+                source={{ uri: item.image }}
+                style={{ width: 150, height: 150, marginRight: 20 }}
+              />
+            )}
+            <Text> {item.info}</Text>
+          </Card.Content>
+        </Card>
+
+        <Card style={styles.innerContainer}>
+          <Card.Content>
+            <Text>Type: {item.type === 'toDo' ? 'To do 🧹' : ' Wish List 🛒'}</Text>
+            <Gap />
+            <Text>Priority: {priorityDisplay(item.priorityLevel)}</Text>
+          </Card.Content>
+        </Card>
+        {item.steps &&
+          item.steps[0] !== null &&
+          item.steps.map((step, index) => (
+            <Card key={index} style={styles.steps}>
+              <Card.Content>
+                <Text>
+                  Step {index + 1}: {step}
+                </Text>
+              </Card.Content>
+            </Card>
+          ))}
+      </View>
+    </ScrollView>
   )
 }
 
@@ -70,7 +81,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: 0,
-    width: '95%',
+    maxWidth: '100%',
+    padding: 20,
+    height: '100%',
   },
   innerContainer: {
     margin: 10,
@@ -78,12 +91,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.background.color,
   },
   steps: {
-    justifyContent: 'space-between',
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    margin: 10,
+    margin: 5,
     width: '100%',
+    backgroundColor: theme.background.color,
   },
   image: {
     flex: 1,

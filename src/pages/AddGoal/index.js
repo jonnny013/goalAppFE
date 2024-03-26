@@ -120,10 +120,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 5,
   },
-  scroll: {
-    flex: 1,
-    maxWidth: '100%',
-  }
 })
 
 export default index
