@@ -5,6 +5,7 @@ import Text from './Text'
 import { Link } from 'react-router-native'
 import Entypo from '@expo/vector-icons/Entypo'
 import { updateAccomplished } from '../services/updateServices'
+import theme from '../styles/theme'
 
 const ListItemDisplay = ({ item }) => {
   const [isChecked, setIsChecked] = useState(item.accomplished === 1)
@@ -50,7 +51,8 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: 80
+    height: 80,
+    backgroundColor: theme.background.cardColor
   },
   innerContainer: {
     flex: 1,

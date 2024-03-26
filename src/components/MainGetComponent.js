@@ -1,11 +1,12 @@
 import { FlatList, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { db } from '../services/db.js'
-import ListItemDisplay from './ListItemDisplay.js'
+//import ListItemDisplay from './ListItemDisplay.js'
 import Gap from './Gap.js'
 import theme from '../styles/theme.js'
 import AddButton from './AddButton.js'
 import FilterResultsBar from './FilterResultsBar.js'
+import ListItemContainer from './ListItemContainer.js'
 
 const MainGetComponent = ({ num, variable }) => {
   const [list, setList] = useState([])
@@ -32,7 +33,7 @@ const MainGetComponent = ({ num, variable }) => {
         data={list}
         ItemSeparatorComponent={<Gap gapSize={theme.gapSize.mediumGap} />}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <ListItemDisplay item={item} />}
+        renderItem={({ item }) => <ListItemContainer item={item} />}
       />
     </View>
   )

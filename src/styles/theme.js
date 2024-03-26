@@ -5,19 +5,22 @@ const theme = {
     titleSize: 30,
     buttonFontSize: 30,
     standardColor: 'black',
-    buttonColor: 'green'
+    buttonColor: 'green',
   },
   gapSize: {
     smallGap: 10,
     mediumGap: 20,
-    bigGap: 30
+    bigGap: 30,
   },
   input: {
-    padding: 10
+    padding: 10,
   },
   background: {
-    color: '#B8E2F2'
-  }
+    color: '#B8E2F2', //input colors
+    cardColor: '#B8E2F2',
+    deleteColor: 'red',
+    editColor: 'yellow'
+  },
 }
 
 export default theme
