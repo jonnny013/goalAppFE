@@ -13,7 +13,7 @@ const index = () => {
 
   return (
     <GestureDetector gesture={pan} >
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 , width: '100%'}}>
         <MainGetComponent
           num={1}
           variable={`'toDo' AND accomplished = 1 or type = 'toGet'`}

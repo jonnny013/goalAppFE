@@ -5,13 +5,26 @@ import theme from '../styles/theme'
 import { useNavigate } from 'react-router-native'
 
 
-const EditDeleteSwipe = ({id, name}) => {
+const EditDeleteSwipe = ({id, name, closeSwipeable}) => {
   const navigate = useNavigate()
 
   const handleDelete = () => {
-   Alert.alert('Confirm delete',  `Are you sure you want to delete ${name}?`, [
-    {text: 'Cancel', onPress: () => console.log('Cancelled'), style: 'cancel'},
-    {text: 'OK', onPress: () => console.log('handle delete here')}
+   Alert.alert('Confirm delete', `Are you sure you want to delete ${name}?`, [
+     {
+       text: 'Cancel',
+       onPress: () => {
+         console.log('cancelled here')
+         closeSwipeable() // Close the swipeable here
+       },
+       style: 'cancel',
+     },
+     {
+       text: 'OK',
+       onPress: () => {
+         console.log('handle delete here')
+         closeSwipeable() // Close the swipeable here
+       },
+     },
    ])
   }
   return (

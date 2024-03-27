@@ -7,23 +7,38 @@ import theme from '../styles/theme.js'
 import AddButton from './AddButton.js'
 import FilterResultsBar from './FilterResultsBar.js'
 import ListItemContainer from './ListItemContainer.js'
+import Loading from './Loading.js'
+import GetStartedPrompt from './GetStartedPrompt.js'
 
 const MainGetComponent = ({ num, variable }) => {
   const [list, setList] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
-      await db.transaction(tx => {
-        tx.executeSql(
-          `SELECT * FROM toDoList WHERE type = ${variable} AND accomplished = ${num} ORDER BY priorityLevel DESC`,
-          [null],
-          (txObj, resultSet) => setList(resultSet.rows._array),
-          (txObj, error) => console.error(error)
-        )
-      })
+      try {
+        await db.transaction(tx => {
+          tx.executeSql(
+            `SELECT * FROM toDoList WHERE type = ${variable} AND accomplished = ${num} ORDER BY priorityLevel DESC`,
+            [],
+            (txObj, resultSet) => setList(resultSet.rows._array),
+            (txObj, error) => console.error('Error fetching data:', error)
+          )
+        })
+        setLoading(false)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+        setLoading(false)
+      }
     }
     fetchData()
   }, [])
+
+  console.log(list.length)
+  if (loading) {return <Loading />}
+  if (list.length < 1) {
+    return <GetStartedPrompt />
+  }
 
   return (
     <View style={styles.container}>
