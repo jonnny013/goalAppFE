@@ -10,6 +10,7 @@ import IndividualItem from './pages/IndividualItem'
 import { initializeDatabase } from './services/db.js'
 import EditGoal from './pages/EditGoal'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import theme from './styles/theme.js'
 
 const Main = () => {
   useEffect(() => {
@@ -39,7 +40,7 @@ export default Main
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: theme.background.backgroundColor,
     alignItems: 'center',
     justifyContent: 'center',
   },

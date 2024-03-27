@@ -5,7 +5,7 @@ const theme = {
     titleSize: 30,
     buttonFontSize: 30,
     standardColor: 'black',
-    buttonColor: 'green',
+    buttonColor: '#adee85',
   },
   gapSize: {
     smallGap: 10,
@@ -16,11 +16,12 @@ const theme = {
     padding: 10,
   },
   background: {
-    color: '#B8E2F2', //input colors
+    color: '#B8E2F2', //form input colors
     cardColor: '#B8E2F2',
-    deleteColor: 'red',
-    editColor: 'yellow',
+    deleteColor: '#e05151',
+    editColor: '#adee85',
     header: '#B8E2F2',
+    backgroundColor: '#f7efe7',
   },
 }
 
