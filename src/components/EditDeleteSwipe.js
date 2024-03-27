@@ -13,8 +13,7 @@ const EditDeleteSwipe = ({id, name, closeSwipeable}) => {
      {
        text: 'Cancel',
        onPress: () => {
-         console.log('cancelled here')
-         closeSwipeable() // Close the swipeable here
+         closeSwipeable()
        },
        style: 'cancel',
      },
@@ -22,7 +21,7 @@ const EditDeleteSwipe = ({id, name, closeSwipeable}) => {
        text: 'OK',
        onPress: () => {
          console.log('handle delete here')
-         closeSwipeable() // Close the swipeable here
+         closeSwipeable()
        },
      },
    ])

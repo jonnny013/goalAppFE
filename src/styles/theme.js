@@ -6,6 +6,7 @@ const theme = {
     buttonFontSize: 30,
     standardColor: 'black',
     buttonColor: '#adee85',
+    headerColor: 'blue'
   },
   gapSize: {
     smallGap: 10,
@@ -22,6 +23,7 @@ const theme = {
     editColor: '#adee85',
     header: '#B8E2F2',
     backgroundColor: '#f7efe7',
+    button: '#adee85',
   },
 }
 

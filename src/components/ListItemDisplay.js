@@ -14,12 +14,9 @@ const ListItemDisplay = ({ item }) => {
     try {
       setIsChecked(prevState => !prevState)
       await updateAccomplished({ num: isChecked ? 0 : 1, item })
-      console.log(isChecked)
-      
     } catch (error) {
       console.log(error)
     }
-   
   }
 
   return (
