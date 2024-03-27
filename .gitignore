@@ -1,5 +1,8 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+eas.json
+goalapp-418507-7cdd224fc3d1.json
+.env
 # dependencies
 node_modules/
 
