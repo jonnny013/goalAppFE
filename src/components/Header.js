@@ -1,20 +1,38 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import Constants from 'expo-constants'
 import {Link } from 'react-router-native'
 import theme from '../styles/theme'
+import { Button } from 'react-native-paper'
 
 const Header = () => {
   return (
     <View style={styles.container}>
       <Link to='/' style={styles.button}>
-        <Text style={styles.text}>To Do</Text>
+        <Button
+          style={styles.text}
+          mode='elevated'
+          compact={true}
+          textColor={theme.fonts.headerColor}
+        >
+          To Do
+        </Button>
       </Link>
       <Link to='/wishList' style={styles.button}>
-        <Text style={styles.text}>Wish List</Text>
+        <Button
+          style={styles.text}
+          mode='elevated'
+          compact={true}
+          textColor={theme.fonts.headerColor}
+        >Wish List</Button>
       </Link>
       <Link to='/accomplishedList' style={styles.button}>
-        <Text style={styles.text}>Accomplished</Text>
+        <Button
+          style={styles.text}
+          mode='elevated'
+          compact={true}
+          textColor={theme.fonts.headerColor}
+        >Accomplished</Button>
       </Link>
     </View>
   )
@@ -31,19 +49,17 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 100,
     padding: 10,
-    paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
   },
   button: {
-    width: 120,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: theme.background.button,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center'
+    borderRadius: 10,
+
   },
   text: {
     fontSize: 18,
-    color: theme.fonts.headerColor
-  }
+    borderRadius: 10,
+    color: theme.fonts.headerColor,
+    backgroundColor: theme.background.header,
+    width: 120,
+  },
 })
