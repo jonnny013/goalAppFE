@@ -36,13 +36,12 @@ const MainGetComponent = ({ num, variable }) => {
    }
 
   useEffect(() => {
-    console.log('fetching')
     const fetchData = async () => {
       try {
         await db.transaction(tx => {
           tx.executeSql(
             `SELECT * FROM toDoList WHERE type = ${variable} AND accomplished = ${num} ORDER BY priorityLevel DESC`,
-            [],
+            [null],
             (txObj, resultSet) => {
               if (resultSet.rows._array.length < 1) {
                 setIsDBEmpty(true)
@@ -59,7 +58,6 @@ const MainGetComponent = ({ num, variable }) => {
     }
     fetchData()
   }, [loading, setLoading])
-console.log('loading:', loading, 'length: ', list.length)
   if (loading) {return <Loading />}
   if (isDBEmpty) {
     return <GetStartedPrompt />
