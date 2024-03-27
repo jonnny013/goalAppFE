@@ -1,5 +1,5 @@
-import { StyleSheet, View, Image } from 'react-native'
-import React, {useState} from 'react'
+import { StyleSheet, View, Image, Animated, Easing } from 'react-native'
+import React, {useState, useEffect} from 'react'
 import CheckBox from 'react-native-check-box'
 import Text from './Text'
 import { Link } from 'react-router-native'
@@ -9,6 +9,21 @@ import theme from '../styles/theme'
 
 const ListItemDisplay = ({ item }) => {
   const [isChecked, setIsChecked] = useState(item.accomplished === 1)
+  const [animationValue] = React.useState(new Animated.Value(0))
+
+  useEffect(() => {
+    Animated.timing(animationValue, {
+      toValue: 1,
+      duration: 1000,
+      easing: Easing.linear,
+      useNativeDriver: true, // Enable native driver for performance
+    }).start()
+  }, [])
+
+    const fadeIn = animationValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1], 
+    })
 
   const handleAccomplished = async () => {
     try {
@@ -20,24 +35,26 @@ const ListItemDisplay = ({ item }) => {
   }
 
   return (
-    <Link to={`/items/${item.id}`} style={{borderRadius: 5}}>
-      <View style={styles.container}>
-        <CheckBox
-          style={{}}
-          onClick={handleAccomplished}
-          isChecked={isChecked}
-          checkBoxColor='green'
-        />
-        <Text style={styles.name} numberOfLines={2} ellipsizeMode='tail'>
-          {item.name}
-        </Text>
+    <Animated.View style={[{ opacity: fadeIn }]}>
+      <Link to={`/items/${item.id}`} style={{ borderRadius: 5 }}>
+        <View style={styles.container}>
+          <CheckBox
+            style={{}}
+            onClick={handleAccomplished}
+            isChecked={isChecked}
+            checkBoxColor='green'
+          />
+          <Text style={styles.name} numberOfLines={2} ellipsizeMode='tail'>
+            {item.name}
+          </Text>
           {item.image ? (
             <Image source={{ uri: item.image }} style={styles.img} />
           ) : (
             <Entypo name='dots-three-vertical' size={40} />
           )}
-      </View>
-    </Link>
+        </View>
+      </Link>
+    </Animated.View>
   )
 }
 
