@@ -11,7 +11,6 @@ const ListItemContainer = ({ item }) => {
       swipeableRef.current.close()
     }
   }
-  console.log('container called')
 
   const renderRightActions = () => (
     <EditDeleteSwipe id={item.id} name={item.name} closeSwipeable={closeSwipeable}/>

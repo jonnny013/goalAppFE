@@ -1,7 +1,6 @@
 import { FlatList, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { db } from '../services/db.js'
-//import ListItemDisplay from './ListItemDisplay.js'
 import Gap from './Gap.js'
 import theme from '../styles/theme.js'
 import AddButton from './AddButton.js'
@@ -34,7 +33,6 @@ const MainGetComponent = ({ num, variable }) => {
     fetchData()
   }, [])
 
-  console.log(list.length)
   if (loading) {return <Loading />}
   if (list.length < 1) {
     return <GetStartedPrompt />
