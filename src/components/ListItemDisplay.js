@@ -20,22 +20,24 @@ const ListItemDisplay = ({ item }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <CheckBox
-        style={{}}
-        onClick={handleAccomplished}
-        isChecked={isChecked}
-        checkBoxColor='green'
-      />
-      <Link to={`/items/${item.id}`}>
+    <Link to={`/items/${item.id}`} style={{borderRadius: 5}}>
+      <View style={styles.container}>
+        <CheckBox
+          style={{}}
+          onClick={handleAccomplished}
+          isChecked={isChecked}
+          checkBoxColor='green'
+        />
         <Text style={styles.name} numberOfLines={2} ellipsizeMode='tail'>
           {item.name}
         </Text>
-      </Link>
-      <Link to={`/items/${item.id}`}>
-        {item.image ? <Image source={{ uri: item.image }} style={styles.img} /> : <Entypo name='dots-three-vertical' size={40} />}
-      </Link>
-    </View>
+          {item.image ? (
+            <Image source={{ uri: item.image }} style={styles.img} />
+          ) : (
+            <Entypo name='dots-three-vertical' size={40} />
+          )}
+      </View>
+    </Link>
   )
 }
 

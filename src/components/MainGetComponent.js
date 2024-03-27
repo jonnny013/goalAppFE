@@ -46,11 +46,14 @@ const MainGetComponent = ({ num, variable }) => {
               if (resultSet.rows._array.length < 1) {
                 setIsDBEmpty(true)
               }
-              setList(resultSet.rows._array)},
-            (txObj, error) => console.error('Error fetching data:', error)
+              setList(resultSet.rows._array)
+            setLoading(false)},
+            (txObj, error) => {
+              setLoading(false)
+              console.error('Error fetching data:', error)}
           )
         })
-        setLoading(false)
+        
       } catch (error) {
         console.error('Error fetching data:', error)
         setLoading(false)
