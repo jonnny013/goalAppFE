@@ -6,12 +6,12 @@ import EditDeleteSwipe from './EditDeleteSwipe'
 const ListItemContainer = ({ item }) => {
 
   const renderRightActions = () => (
-    <EditDeleteSwipe />
+    <EditDeleteSwipe id={item.id} name={item.name} />
   )
 
   return (
 
-      <Swipeable renderRightActions={renderRightActions}>
+      <Swipeable renderRightActions={renderRightActions} overshootFriction={8} friction={2} >
         <ListItemDisplay item={item} />
       </Swipeable>
   )
