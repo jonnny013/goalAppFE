@@ -2,15 +2,19 @@ import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { RadioButton } from 'react-native-paper'
 import CalendarPicker from 'react-native-calendar-picker'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Text from '../../components/Text'
 
-const Deadline = ({setDeadline}) => {
-    const [wantsDeadline, setWantsDeadline] = useState(false)
+const Deadline = ({ setDeadline, deadline }) => {
+  const [wantsDeadline, setWantsDeadline] = useState(false)
 
-    const handleDate = (date) => {
-      setDeadline(date.toISOString())
-    }
+  useEffect(() => {
+    deadline ? setWantsDeadline(true) : null
+  }, [deadline])
+
+  const handleDate = date => {
+    setDeadline(date.toISOString())
+  }
   return (
     <>
       <View style={styles.innerContainer}>
@@ -40,7 +44,9 @@ const Deadline = ({setDeadline}) => {
           <Text>No</Text>
         </View>
       </View>
-      {wantsDeadline && <CalendarPicker onDateChange={handleDate} />}
+      {wantsDeadline && (
+        <CalendarPicker onDateChange={handleDate} selectedStartDate={deadline} />
+      )}
     </>
   )
 }

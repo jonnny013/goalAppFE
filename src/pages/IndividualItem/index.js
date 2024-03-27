@@ -5,7 +5,6 @@ import { useParams } from 'react-router-native'
 import theme from '../../styles/theme'
 import Loading from '../../components/Loading'
 import { fetchToDoListWithSteps } from '../../services/GetIndividualItem'
-import Gap from '../../components/Gap'
 import AddButton from '../../components/AddButton'
 import GoalImage from '../../../assets/goal.png'
 import { Card } from 'react-native-paper'
@@ -24,7 +23,6 @@ const index = () => {
   }, [])
 
   if (!item) return <Loading />
-  console.log(item)
   return (
     <ScrollView style={{ width: '100%' }}>
       <View style={styles.container}>

@@ -104,7 +104,7 @@ const index = () => {
           image={formData.image}
           setImage={image => setFormData({ ...formData, image })}
         />
-        <Deadline setDeadline={deadline => setFormData({ ...formData, deadline })} />
+        <Deadline setDeadline={deadline => setFormData({ ...formData, deadline })} deadline={formData.deadline} />
 
         <Button text='Submit' onPress={handleSubmit} />
       </View>
