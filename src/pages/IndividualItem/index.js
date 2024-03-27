@@ -9,6 +9,8 @@ import Gap from '../../components/Gap'
 import AddButton from '../../components/AddButton'
 import GoalImage from '../../../assets/goal.png'
 import { Card } from 'react-native-paper'
+import DateTable from './DateTable'
+import InfoTable from './InfoTable'
 
 const index = () => {
   const { id } = useParams()
@@ -21,18 +23,10 @@ const index = () => {
     fetch()
   }, [])
 
-  const priorityDisplay = (level) => {
-    let fire = ''
-    for (let i = 1; i <= level; i++ ) {
-      fire = fire.concat('🔥')
-    }
-    return fire
-  }
-
   if (!item) return <Loading />
   console.log(item)
   return (
-    <ScrollView style={{width: '100%'}}>
+    <ScrollView style={{ width: '100%' }}>
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image source={GoalImage} style={styles.image} resizeMode='contain' />
@@ -50,14 +44,10 @@ const index = () => {
             <Text> {item.info}</Text>
           </Card.Content>
         </Card>
+        <InfoTable item={item} />
 
-        <Card style={styles.innerContainer}>
-          <Card.Content>
-            <Text>Type: {item.type === 'toDo' ? 'To do 🧹' : ' Wish List 🛒'}</Text>
-            <Gap />
-            <Text>Priority: {priorityDisplay(item.priorityLevel)}</Text>
-          </Card.Content>
-        </Card>
+        <DateTable item={item} />
+
         {item.steps &&
           item.steps[0] !== null &&
           item.steps.map((step, index) => (
