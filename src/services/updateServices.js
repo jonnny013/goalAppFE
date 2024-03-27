@@ -66,3 +66,42 @@ export const editToDoItem = ({ id, object }) => {
     }
   )
 }
+
+export const deleteItemById = id => {
+  db.transaction(
+    tx => {
+      tx.executeSql(
+        'DELETE FROM toDoList WHERE id = ?',
+        [id],
+        (_, toDoListResultSet) => {
+          if (toDoListResultSet.rowsAffected > 0) {
+            console.log(`Item with id ${id} deleted successfully from toDoList`)
+            // Delete related steps
+            tx.executeSql(
+              'DELETE FROM steps WHERE toDo_id = ?',
+              [id],
+              // eslint-disable-next-line no-unused-vars
+              (_, _stepsResultSet) => {
+                console.log(`Related steps deleted for item with id ${id}`)
+              },
+              (_, error) => {
+                console.error(
+                  `Error deleting related steps for item with id ${id}:`,
+                  error
+                )
+              }
+            )
+          } else {
+            console.log(`Item with id ${id} not found in toDoList`)
+          }
+        },
+        (_, error) => {
+          console.error(`Error deleting item with id ${id} from toDoList:`, error)
+        }
+      )
+    },
+    (_, error) => {
+      console.error('Transaction error:', error)
+    }
+  )
+}

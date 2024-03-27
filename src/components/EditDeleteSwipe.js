@@ -1,34 +1,17 @@
-import { StyleSheet, TouchableOpacity, View, Alert } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import FA from '@expo/vector-icons/FontAwesome6'
 import theme from '../styles/theme'
 import { useNavigate } from 'react-router-native'
 
 
-const EditDeleteSwipe = ({id, name, closeSwipeable}) => {
+const EditDeleteSwipe = ({ id, name, closeSwipeable, handleDelete }) => {
   const navigate = useNavigate()
 
-  const handleDelete = () => {
-   Alert.alert('Confirm delete', `Are you sure you want to delete ${name}?`, [
-     {
-       text: 'Cancel',
-       onPress: () => {
-         closeSwipeable()
-       },
-       style: 'cancel',
-     },
-     {
-       text: 'OK',
-       onPress: () => {
-         console.log('handle delete here')
-         closeSwipeable()
-       },
-     },
-   ])
-  }
+ 
   return (
     <View style={{ flexDirection: 'row' }}>
-      <TouchableOpacity onPress={handleDelete}>
+      <TouchableOpacity onPress={() => handleDelete({name, id, closeSwipeable})}>
         <View style={[styles.container, styles.deleteColor]}>
           <FA name='trash' size={20} />
         </View>

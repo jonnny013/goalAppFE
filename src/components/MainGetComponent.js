@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, StyleSheet, View, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { db } from '../services/db.js'
 import Gap from './Gap.js'
@@ -8,19 +8,46 @@ import FilterResultsBar from './FilterResultsBar.js'
 import ListItemContainer from './ListItemContainer.js'
 import Loading from './Loading.js'
 import GetStartedPrompt from './GetStartedPrompt.js'
+import { deleteItemById } from '../services/updateServices'
 
 const MainGetComponent = ({ num, variable }) => {
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
+  const [isDBEmpty, setIsDBEmpty] = useState(false)
+
+   const handleDelete = ({ name, id, closeSwipeable }) => {
+     Alert.alert('Confirm delete', `Are you sure you want to delete ${name}?`, [
+       {
+         text: 'Cancel',
+         onPress: () => {
+           closeSwipeable()
+         },
+         style: 'cancel',
+       },
+       {
+         text: 'OK',
+         onPress: () => {
+           deleteItemById(id)
+           closeSwipeable()
+           setLoading(true)
+         },
+       },
+     ])
+   }
 
   useEffect(() => {
+    console.log('fetching')
     const fetchData = async () => {
       try {
         await db.transaction(tx => {
           tx.executeSql(
             `SELECT * FROM toDoList WHERE type = ${variable} AND accomplished = ${num} ORDER BY priorityLevel DESC`,
             [],
-            (txObj, resultSet) => setList(resultSet.rows._array),
+            (txObj, resultSet) => {
+              if (resultSet.rows._array.length < 1) {
+                setIsDBEmpty(true)
+              }
+              setList(resultSet.rows._array)},
             (txObj, error) => console.error('Error fetching data:', error)
           )
         })
@@ -31,10 +58,10 @@ const MainGetComponent = ({ num, variable }) => {
       }
     }
     fetchData()
-  }, [])
-
+  }, [loading, setLoading])
+console.log('loading:', loading, 'length: ', list.length)
   if (loading) {return <Loading />}
-  if (list.length < 1) {
+  if (isDBEmpty) {
     return <GetStartedPrompt />
   }
 
@@ -46,7 +73,7 @@ const MainGetComponent = ({ num, variable }) => {
         data={list}
         ItemSeparatorComponent={<Gap gapSize={theme.gapSize.mediumGap} />}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <ListItemContainer item={item} />}
+        renderItem={({ item }) => <ListItemContainer item={item} handleDelete={handleDelete} />}
       />
     </View>
   )

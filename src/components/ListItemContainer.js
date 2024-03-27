@@ -3,7 +3,7 @@ import ListItemDisplay from './ListItemDisplay'
 import {  Swipeable } from 'react-native-gesture-handler'
 import EditDeleteSwipe from './EditDeleteSwipe'
 
-const ListItemContainer = ({ item }) => {
+const ListItemContainer = ({ item, handleDelete }) => {
   const swipeableRef = useRef(null)
 
   const closeSwipeable = () => {
@@ -13,7 +13,7 @@ const ListItemContainer = ({ item }) => {
   }
 
   const renderRightActions = () => (
-    <EditDeleteSwipe id={item.id} name={item.name} closeSwipeable={closeSwipeable}/>
+    <EditDeleteSwipe id={item.id} name={item.name} closeSwipeable={closeSwipeable} handleDelete={handleDelete}/>
   )
 
   return (
